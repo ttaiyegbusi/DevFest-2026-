@@ -1,0 +1,105 @@
+/* ============================================================================
+   Talks — headline and lede over a physics pit the topic pills fall into.
+   ========================================================================== */
+
+.talks {
+  position: relative;
+  background: #fff;
+  color: #111;
+  padding: clamp(64px, 8vw, 120px) clamp(20px, 7vw, 104px) 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: var(--font-sans), "Helvetica Neue", Arial, sans-serif;
+}
+
+.talks__eyebrow {
+  margin: 0 0 clamp(18px, 2.4vw, 34px);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #111;
+}
+
+.talks__title {
+  margin: 0;
+  max-width: 16ch;
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(44px, 7.4vw, 108px);
+  line-height: 0.98;
+  letter-spacing: -0.015em;
+  color: #f5b400;
+}
+
+.talks__lede {
+  margin: clamp(20px, 2.6vw, 34px) 0 0;
+  max-width: 34ch;
+  font-size: clamp(15px, 1.15vw, 17px);
+  line-height: 1.45;
+  color: #111;
+}
+
+/* ---- the pit ------------------------------------------------------------ */
+/* Takes the remaining height, so the pills always land on the section's
+   floor rather than at some fixed offset. `pan-y` keeps vertical scrolling
+   working on touch; a grab on a pill calls preventDefault itself. */
+.talks__pit {
+  position: relative;
+  flex: 1;
+  min-height: clamp(260px, 42vh, 520px);
+  margin-top: clamp(24px, 4vw, 60px);
+  touch-action: pan-y;
+  cursor: grab;
+}
+.talks__pit.is-grabbing {
+  cursor: grabbing;
+}
+
+.pill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* The engine writes translate+rotate; keep the origin at the box centre so
+     rotation matches the body, whose origin is its centre of mass. */
+  transform-origin: 50% 50%;
+  will-change: transform;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  padding: clamp(10px, 1.1vw, 16px) clamp(18px, 1.9vw, 30px);
+  border-radius: 999px;
+  font-size: clamp(15px, 1.5vw, 24px);
+  font-weight: 400;
+  line-height: 1.15;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ---- reduced motion: no drop, no drag, just the rows ---------------------- */
+.talks__pit.is-static {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-end;
+  gap: clamp(8px, 0.9vw, 14px);
+  cursor: default;
+}
+.talks__pit.is-static .pill {
+  position: relative;
+  transform: none;
+}
+
+/* Readable list of the same topics for assistive tech. */
+.talks__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

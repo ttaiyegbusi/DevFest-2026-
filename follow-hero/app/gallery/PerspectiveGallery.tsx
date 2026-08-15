@@ -420,6 +420,9 @@ export function PerspectiveGallery({
 
     // Keyboard equivalent, so the ribbon is not mouse-only.
     const onKey = (e: KeyboardEvent) => {
+      // Only while the hero is actually on screen — otherwise arrow keys
+      // pressed further down the page silently spin a ribbon nobody can see.
+      if (!activeRef.current) return;
       if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
       spinV = (e.key === "ArrowRight" ? 1 : -1) * PHASE_SPEED * 9;
     };
